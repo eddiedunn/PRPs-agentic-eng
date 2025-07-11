@@ -144,23 +144,14 @@ ROUTES:
 
 After each implementation step, you must enter a validation loop. Follow these steps precisely:
 
-1. **Execute the Full Test Suite:** Use the standard Python test runner to run all tests in the project.
-2. **Analyze Output:** If any tests fail, carefully review the full error log to identify the root cause.
-3. **Implement Fix:** Modify the code you have written to correct the issue.
-4. **Run Security Scan:** Execute a security scan using `semgrep --config="p/default"`.
-5. **Analyze Security Findings:** If the scan reports any medium or high-severity issues, you must analyze them and implement a fix before proceeding.
-6. **Repeat:** Return to step 1 and re-run the tests and security scan. Do not proceed until all tests and the security scan pass with no unresolved issues.
-7. **Final Verification:** Once all tests and security checks pass, confirm that the changes meet all acceptance criteria outlined in the 'What' section before concluding your work.
-8. **Lint:** Ensure the codebase passes all linting checks using the project's standard linter.
-def test_external_api_timeout():
-    """Handles timeouts gracefully"""
-    with mock.patch('external_api.call', side_effect=TimeoutError):
-        result = new_feature("valid")
-        assert result.status == "error"
-        assert "timeout" in result.message
-```
-
-- For each new or modified feature, repeat the validation loop until all relevant tests pass. Never bypass or mock failures simply to achieve a passing state; always address the root cause.
+1.  **Execute the Full Test Suite:** Use the standard Python test runner to run all tests in the project (`python -m pytest`).
+2.  **Analyze Output:** If any tests fail, carefully review the full error log to identify the root cause.
+3.  **Implement Fix:** Modify the code you have written to correct the issue.
+4.  **Run Security Scan:** Execute a security scan using `semgrep --config="p/default"`.
+5.  **Analyze Security Findings:** If the scan reports any medium or high-severity issues, you must analyze them and implement a fix before proceeding.
+6.  **Repeat:** Return to step 1 and re-run the tests and security scan. Do not proceed until all tests and the security scan pass with no unresolved issues.
+7.  **Final Verification:** Once all tests and security checks pass, confirm that the changes meet all acceptance criteria outlined in the 'What' section before concluding your work.
+8.  **Lint:** Ensure the codebase passes all linting checks using the project's standard linter (`python -m ruff check .`).
 ### Level 3: Integration Test
 
 - To validate integration, instruct the agent to start the service in development mode and test the relevant endpoint using a suitable HTTP request. The agent should verify that the response matches the expected output and, if errors occur, analyze the application logs to diagnose the problem.

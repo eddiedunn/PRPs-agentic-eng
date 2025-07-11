@@ -151,13 +151,13 @@ ROUTES:
 
 ## Validation Loop
 
-After each implementation step, Codex MUST perform the following validation:
+After each implementation step, you MUST perform the following validation:
 
-1. **Run Tests:** Execute the relevant test command for the framework.
-2. **Analyze Failure:** If tests fail, do not stop. Read the error output, identify the root cause, and modify the code to fix the issue.
-3. **Iterate:** Repeat steps 1 and 2 until all tests pass.
-4. **Final Verification:** Once all tests pass, confirm that the changes meet all acceptance criteria outlined in the 'What' section before concluding your work.
-5. **Lint:** Ensure that the code adheres to the project's linting and type checking rules.
+1.  **Run Linting and Type Checking:** Execute the project's linting and type-checking scripts (e.g., `npm run lint`, `npm run type-check`).
+2.  **Run Tests:** Execute the full test suite (`npm test`).
+3.  **Analyze Failure:** If any validation step fails, read the error output, identify the root cause, and modify the code to fix the issue.
+4.  **Iterate:** Repeat the validation steps until all checks pass.
+5.  **Final Verification:** Confirm that the changes meet all acceptance criteria outlined in the 'What' section before concluding your work.
 
 ### Level 2: Unit Tests each new feature/file/function use existing test patterns
 
