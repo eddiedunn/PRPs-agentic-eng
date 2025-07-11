@@ -1,12 +1,12 @@
-Below is the complete **CLAUDE‑RUST.md** guide, modelled after the language‑specific files in your repository.
-All version numbers, tools and best‑practice links are current as of **Rust 1.88 (2025‑06‑26)**.
+Below is the complete **agent-guidance-rust.md** guide, modeled after the language-specific files in your repository.
+All version numbers, tools and best-practice links are current as of **Rust 1.88 (2025-06-26)**.
 
 ---
 
 ````markdown
-# CLAUDE‑RUST.md
+# Agent Guidance: Rust 1.88+
 
-This file provides comprehensive guidance to **Claude Code** when working with Rust 1.88+ projects.
+This file provides comprehensive guidance to an AI agent when working with Rust 1.88+ projects.
 
 ## Core Development Philosophy
 

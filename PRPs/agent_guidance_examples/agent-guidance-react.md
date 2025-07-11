@@ -1,6 +1,6 @@
-# CLAUDE.md
+# Agent Guidance: React 19
 
-This file provides guidance to Claude Code when working with React 19 applications.
+This file provides guidance to an AI agent when working with React 19 applications.
 
 ## Core Development Philosophy
 

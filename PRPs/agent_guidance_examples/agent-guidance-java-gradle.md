@@ -1,6 +1,6 @@
-# CLAUDE.md
+# Agent Guidance: Java with Gradle
 
-This file provides comprehensive guidance to Claude Code when working with Java code in this repository.
+This file provides comprehensive guidance to an AI agent when working with Java code in a Gradle-based project.
 
 ## Core Development Philosophy
 

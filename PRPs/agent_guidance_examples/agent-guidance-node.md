@@ -1,6 +1,6 @@
-# CLAUDE.md
+# Agent Guidance: Node.js 23
 
-This file provides comprehensive guidance to Claude Code when working with Node.js 23 applications.
+This file provides comprehensive guidance to an AI agent when working with Node.js 23 applications.
 
 ## Core Development Philosophy
 
