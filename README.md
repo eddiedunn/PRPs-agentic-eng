@@ -64,22 +64,18 @@ Precise file paths and content, library versions and library context, code snipp
 
 ### Option 1: Copy Resources to Your Existing Project
 
-1. **Copy the Claude commands** to your project:
+**Legacy (Claude) commands** – no longer required for Codex.
+*If you still need the old Claude commands, they now live in `legacy_claude/commands`. Most users migrating to Codex should skip this step.*
 
-   ```bash
-   # From your project root
-   cp -r /path/to/PRPs-agentic-eng/.claude/commands .claude/
-   ```
-
-2. **Copy the PRP templates and runner**:
+1. **Copy the PRP templates**:
 
    ```bash
    cp -r /path/to/PRPs-agentic-eng/PRPs/templates PRPs/
-   cp -r /path/to/PRPs-agentic-eng/PRPs/scripts PRPs/
-   cp /path/to/PRPs-agentic-eng/PRPs/README.md PRPs/
    ```
 
-3. **Copy AI documentation** (optional but recommended):
+*`prp_runner_legacy.py` is retained only for reference and is not needed in a Codex workflow.*
+
+2. **Copy AI documentation** (optional but recommended):
    ```bash
    cp -r /path/to/PRPs-agentic-eng/PRPs/ai_docs PRPs/
    ```
@@ -100,7 +96,7 @@ Precise file paths and content, library versions and library context, code snipp
    mkdir -p src/tests
    touch src/__init__.py
    touch pyproject.toml
-   touch CLAUDE.md
+   touch AGENTS.md
    ```
 
 3. **Initialize with UV** (for Python projects):
@@ -109,9 +105,10 @@ Precise file paths and content, library versions and library context, code snipp
    uv sync
    ```
 
-## Using Claude Commands
+## Legacy Claude Commands (Deprecated)
 
-The `.claude/commands/` directory contains 12 pre-configured commands that appear as slash commands in Claude Code.
+The former `.claude/commands/` slash-command system is specific to the Claude Code IDE and **is not supported in OpenAI Codex**. These files have been archived under `legacy_claude/commands` for historical reference.
+*If you're migrating to Codex, ignore this section and use the new `AGENTS.md` workflow instead.*
 
 ### Available Commands
 

@@ -72,7 +72,7 @@ CREATE path/to/file:
   - COPY_PATTERN: path/to/other/file
   - IMPLEMENT:
    - [Detailed description of what needs to be implemented based on codebase intelligence]
-  - VALIDATE: uv run pytest path/to/file -v
+  - VALIDATE: python -m pytest path/to/file -v
 
 UPDATE path/to/file:
   - FIND: app.include_router(
@@ -81,21 +81,21 @@ UPDATE path/to/file:
     from .endpoints import new_model_router
     app.include_router(new_model_router, prefix="/api/v1")
     ```
-  - VALIDATE: uv run pytest path/to/file -v
+  - VALIDATE: python -m pytest path/to/file -v
 ````
 
 ## Validation Checkpoints
 
 ```
 CHECKPOINT syntax:
-  - RUN: ruff check && mypy .
+  - RUN: python -m ruff check && python -m mypy .
   - FIX: Any reported issues
   - CONTINUE: Only when clean
 
 CHECKPOINT tests:
-  - RUN: uv run pytest path/to/file -v
+  - RUN: python -m pytest path/to/file -v
   - REQUIRE: All passing
-  - DEBUG: uv run pytest -vvs path/to/file/failing_test.py
+  - DEBUG: python -m pytest -vvs path/to/file/failing_test.py
   - CONTINUE: Only when all green
 
 CHECKPOINT integration:
@@ -115,7 +115,7 @@ DEBUG import_error:
   - FIX: Add to PYTHONPATH or fix import
 
 DEBUG test_failure:
-  - RUN: uv run pytest -vvs path/to/test.py::test_name
+  - RUN: python -m pytest -vvs path/to/test.py::test_name
   - ADD: print(f"Debug: {variable}")
   - IDENTIFY: Assertion vs implementation issue
   - FIX: Update test or fix code

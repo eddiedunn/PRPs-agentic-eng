@@ -48,8 +48,9 @@ Template optimized for AI agents to implement features with sufficient context a
   section: [Specific section about common pitfalls]
   critical: [Key insight that prevents common errors]
 
-- docfile: [PRPs/ai_docs/file.md]
+- docfile: [./docs/file.md]  # Place project documentation under ./docs
   why: [docs that the user has pasted in to the project]
+  note: See AGENTS.md for more information on agent-specific documentation.
 ```
 
 ### Current Codebase tree (run `tree` in the root of the project) to get an overview of the codebase
@@ -156,8 +157,8 @@ ROUTES:
 
 ```bash
 # Run these FIRST - fix any errors before proceeding
-ruff check src/new_feature.py --fix  # Auto-fix what's possible
-mypy src/new_feature.py              # Type checking
+python -m ruff check src/new_feature.py --fix  # Auto-fix what's possible
+python -m mypy src/new_feature.py              # Type checking
 
 # Expected: No errors. If errors, READ the error and fix.
 ```
@@ -186,7 +187,7 @@ def test_external_api_timeout():
 
 ```bash
 # Run and iterate until passing:
-uv run pytest test_new_feature.py -v
+python -m pytest test_new_feature.py -v
 # If failing: Read error, understand root cause, fix code, re-run (never mock to pass)
 ```
 
@@ -194,7 +195,7 @@ uv run pytest test_new_feature.py -v
 
 ```bash
 # Start the service
-uv run python -m src.main --dev
+python -m src.main --dev
 
 # Test the endpoint
 curl -X POST http://localhost:8000/feature \
@@ -222,9 +223,9 @@ curl -X POST http://localhost:8000/feature \
 
 ## Final validation Checklist
 
-- [ ] All tests pass: `uv run pytest tests/ -v`
-- [ ] No linting errors: `uv run ruff check src/`
-- [ ] No type errors: `uv run mypy src/`
+- [ ] All tests pass: `python -m pytest tests/ -v`
+- [ ] No linting errors: `python -m ruff check src/`
+- [ ] No type errors: `python -m mypy src/`
 - [ ] Manual test successful: [specific curl/command]
 - [ ] Error cases handled gracefully
 - [ ] Logs are informative but not verbose
