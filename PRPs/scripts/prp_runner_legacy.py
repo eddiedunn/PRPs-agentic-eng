@@ -99,20 +99,14 @@ def run_model(
         # Chat mode: feed prompt via STDIN, no -p flag so the user can continue the session.
         cmd = [
             model,
-            "--allowedTools",
-            "Edit,Bash,Write,MultiEdit,NotebookEdit,WebFetch,Agent,LS,Grep,Read,NotebookRead,TodoRead,TodoWrite,WebSearch",
         ]
         subprocess.run(cmd, input=prompt.encode(), check=True)
     else:
         # Headless: pass prompt via -p for non-interactive mode
         cmd = [
             model,
-            "-p",  # This is the --print flag for non-interactive mode
+            "-p",
             prompt,
-            "--allowedTools",
-            "Edit,Bash,Write,MultiEdit,NotebookEdit,WebFetch,Agent,LS,Grep,Read,NotebookRead,TodoRead,TodoWrite,WebSearch",
-            # "--max-turns",
-            # "30",  # Safety limit for headless mode uncomment if needed
             "--output-format",
             output_format,
         ]

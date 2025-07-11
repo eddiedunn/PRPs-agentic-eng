@@ -32,39 +32,24 @@ Template optimized for AI agents to implement features with sufficient context a
 
 - [ ] [Specific measurable outcomes]
 
+## Security & Compliance Requirements
+
+- [List explicit security constraints for this feature. e.g., "All personally identifiable information (PII) must be encrypted at rest."]
+- [Specify any compliance standards that must be met, like GDPR or HIPAA.]
+- [Define any anti-patterns to avoid, e.g., "Do not use MD5 for hashing."]
+
 ## All Needed Context
 
-### Documentation & References (list all context needed to implement the feature)
+- Instruct Codex to read and analyze specific files for implementation patterns. For example: "Read `path/to/example.py` to understand how input validation is handled."
+- Summarize any critical documentation, library gotchas, or project-specific quirks as actionable instructions. For example: "This project uses Pydantic v2 for all schemas; see `src/schemas/` for examples."
+- Do not inject files or documentation directly. Instead, provide clear instructions on what to review and why.
+### Current Codebase tree
 
-```yaml
-# MUST READ - Include these in your context window
-- url: [Official API docs URL]
-  why: [Specific sections/methods you'll need]
-
-- file: [path/to/example.py]
-  why: [Pattern to follow, gotchas to avoid]
-
-- doc: [Library documentation URL]
-  section: [Specific section about common pitfalls]
-  critical: [Key insight that prevents common errors]
-
-- docfile: [./docs/file.md]  # Place project documentation under ./docs
-  why: [docs that the user has pasted in to the project]
-  note: See AGENTS.md for more information on agent-specific documentation.
-```
-
-### Current Codebase tree (run `tree` in the root of the project) to get an overview of the codebase
-
-```bash
-
-```
+- Instruct the agent to generate an overview of the codebase structure by analyzing the project root.
 
 ### Desired Codebase tree with files to be added and responsibility of file
 
-```bash
-
-```
-
+- Instruct the agent to define the desired codebase structure, specifying new files and their responsibilities.
 ### Known Gotchas of our codebase & Library Quirks
 
 ```python
@@ -75,6 +60,10 @@ Template optimized for AI agents to implement features with sufficient context a
 ```
 
 ## Implementation Blueprint
+
+- List the high-level steps Codex should perform, referencing patterns and best practices from the codebase.
+- For each step, specify what files to analyze, what patterns to follow, and any gotchas to watch for.
+- Avoid direct shell commands or file injections—describe the reasoning process instead.
 
 ### Data models and structure
 
@@ -153,30 +142,16 @@ ROUTES:
 
 ## Validation Loop
 
-### Level 1: Syntax & Style
+After each implementation step, you must enter a validation loop. Follow these steps precisely:
 
-```bash
-# Run these FIRST - fix any errors before proceeding
-python -m ruff check src/new_feature.py --fix  # Auto-fix what's possible
-python -m mypy src/new_feature.py              # Type checking
-
-# Expected: No errors. If errors, READ the error and fix.
-```
-
-### Level 2: Unit Tests each new feature/file/function use existing test patterns
-
-```python
-# CREATE test_new_feature.py with these test cases:
-def test_happy_path():
-    """Basic functionality works"""
-    result = new_feature("valid_input")
-    assert result.status == "success"
-
-def test_validation_error():
-    """Invalid input raises ValidationError"""
-    with pytest.raises(ValidationError):
-        new_feature("")
-
+1. **Execute the Full Test Suite:** Use the standard Python test runner to run all tests in the project.
+2. **Analyze Output:** If any tests fail, carefully review the full error log to identify the root cause.
+3. **Implement Fix:** Modify the code you have written to correct the issue.
+4. **Run Security Scan:** Execute a security scan using `semgrep --config="p/default"`.
+5. **Analyze Security Findings:** If the scan reports any medium or high-severity issues, you must analyze them and implement a fix before proceeding.
+6. **Repeat:** Return to step 1 and re-run the tests and security scan. Do not proceed until all tests and the security scan pass with no unresolved issues.
+7. **Final Verification:** Once all tests and security checks pass, confirm that the changes meet all acceptance criteria outlined in the 'What' section before concluding your work.
+8. **Lint:** Ensure the codebase passes all linting checks using the project's standard linter.
 def test_external_api_timeout():
     """Handles timeouts gracefully"""
     with mock.patch('external_api.call', side_effect=TimeoutError):
@@ -185,52 +160,22 @@ def test_external_api_timeout():
         assert "timeout" in result.message
 ```
 
-```bash
-# Run and iterate until passing:
-python -m pytest test_new_feature.py -v
-# If failing: Read error, understand root cause, fix code, re-run (never mock to pass)
-```
-
+- For each new or modified feature, repeat the validation loop until all relevant tests pass. Never bypass or mock failures simply to achieve a passing state; always address the root cause.
 ### Level 3: Integration Test
 
-```bash
-# Start the service
-python -m src.main --dev
-
-# Test the endpoint
-curl -X POST http://localhost:8000/feature \
-  -H "Content-Type: application/json" \
-  -d '{"param": "test_value"}'
-
-# Expected: {"status": "success", "data": {...}}
-# If error: Check logs at logs/app.log for stack trace
-```
-
+- To validate integration, instruct the agent to start the service in development mode and test the relevant endpoint using a suitable HTTP request. The agent should verify that the response matches the expected output and, if errors occur, analyze the application logs to diagnose the problem.
 ### Level 4: Deployment & Creative Validation
 
-```bash
-# MCP servers or other creative validation methods
-# Examples:
-# - Load testing with realistic data
-# - End-to-end user journey testing
-# - Performance benchmarking
-# - Security scanning
-# - Documentation validation
+- Perform creative or advanced validation relevant to the feature, such as load testing with realistic data, end-to-end user journey testing, performance benchmarking, security scanning, or documentation validation. Specify any custom validation methods required for this feature.
+## Final Validation Checklist
 
-# Custom validation specific to the feature
-# [Add creative validation methods here]
-```
-
-## Final validation Checklist
-
-- [ ] All tests pass: `python -m pytest tests/ -v`
-- [ ] No linting errors: `python -m ruff check src/`
-- [ ] No type errors: `python -m mypy src/`
-- [ ] Manual test successful: [specific curl/command]
-- [ ] Error cases handled gracefully
+- [ ] All tests pass (run the project's full test suite)
+- [ ] No linting errors (run the project's standard linter)
+- [ ] No type errors (run the project's type checker)
+- [ ] Manual testing of endpoints or features is successful (describe the expected result)
+- [ ] Error cases are handled gracefully
 - [ ] Logs are informative but not verbose
-- [ ] Documentation updated if needed
-
+- [ ] Documentation is updated if needed
 ---
 
 ## Anti-Patterns to Avoid

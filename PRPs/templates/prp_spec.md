@@ -1,3 +1,5 @@
+_See AGENTS.md for Codex workflow_
+
 # Specification Template (prompt inspired by IndyDevDan)
 
 > Ingest the information from this file, implement the Low-Level Tasks, and generate the code that will satisfy the High and Mid-Level Objectives.
@@ -23,12 +25,11 @@
 
 ### Beginning context
 
-- [List of files that exist at start - what files exist at start?]
+- Instruct Codex to review and analyze the files that exist at the start of the task. For example: "Review the following files to understand the current state: [list files]."
 
 ### Ending context
 
-- [List of files that will exist at end - what files will exist at end?]
-
+- Instruct Codex to ensure the following files exist and meet the requirements at the end of the task. For example: "Verify that these files are present and satisfy the objectives: [list files]."
 ## Low-Level Tasks
 
 > Ordered from start to finish

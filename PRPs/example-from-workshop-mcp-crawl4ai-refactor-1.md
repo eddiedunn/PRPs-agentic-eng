@@ -386,8 +386,8 @@ IMPORTS:
 ### Level 1: Syntax & Style
 ```bash
 # After each file creation, run:
-uv run ruff check src/new_file.py --fix
-uv run mypy src/new_file.py
+# [REPLACE: use container-native command] uv run ruff check src/new_file.py --fix
+# [REPLACE: use container-native command] uv run mypy src/new_file.py
 
 # Expected: No errors. If errors, READ and fix.
 ```
@@ -429,7 +429,7 @@ async def test_add_documents_empty_list(database_service):
 
 ```bash
 # Run tests after creating each service:
-uv run pytest src/services/tests/test_database.py -v
+# [REPLACE: use container-native command] uv run pytest src/services/tests/test_database.py -v
 # If failing: Read error, fix code, re-run
 ```
 
@@ -437,20 +437,20 @@ uv run pytest src/services/tests/test_database.py -v
 ```bash
 # After Phase 5 completion:
 # Start the refactored service
-uv run python main.py
+# [REPLACE: use container-native command] uv run python main.py
 ```
 
 Ensure it runs
 
 ## Final Validation Checklist
 - [ ] UV properly configured: `uv sync` works
-- [ ] All tests pass: `uv run pytest src/ -v`
-- [ ] No linting errors: `uv run ruff check src/`
-- [ ] No type errors: `uv run mypy src/`
+- [ ] All tests pass: `# [REPLACE: use container-native command] uv run pytest src/ -v`
+- [ ] No linting errors: `# [REPLACE: use container-native command] uv run ruff check src/`
+- [ ] No type errors: `# [REPLACE: use container-native command] uv run mypy src/`
 - [ ] All files under 500 lines
 - [ ] Each component has tests
 - [ ] Original functionality preserved
-- [ ] Can run with: `uv run python main.py`
+- [ ] Can run with: `# [REPLACE: use container-native command] uv run python main.py`
 
 ---
 

@@ -1,3 +1,5 @@
+_See AGENTS.md for Codex workflow_
+
 name: "Base PRP Template v2 - Context-Rich with Validation Loops"
 description: |
 
@@ -34,24 +36,9 @@ Template optimized for AI agents to implement features with sufficient context a
 
 ## All Needed Context
 
-### Documentation & References (list all context needed to implement the feature)
-
-```yaml
-# MUST READ - Include these in your context window
-- url: [Official Next.js/React docs URL]
-  why: [Specific sections/methods you'll need]
-
-- file: [path/to/example.tsx]
-  why: [Pattern to follow, gotchas to avoid]
-
-- doc: [Library documentation URL]
-  section: [Specific section about common pitfalls]
-  critical: [Key insight that prevents common errors]
-
-- docfile: [PRPs/ai_docs/file.md]
-  why: [docs that the user has pasted in to the project]
-```
-
+- Instruct Codex to read and analyze specific files for implementation patterns. For example: "Read `path/to/example.tsx` to understand how input validation is handled."
+- Summarize any critical documentation, library gotchas, or project-specific quirks as actionable instructions. For example: "This project uses TypeScript strict mode and requires proper typing; see `src/components/` for examples."
+- Do not inject files or documentation directly. Instead, provide clear instructions on what to review and why.
 ### Current Codebase tree (run `tree` in the root of the project) to get an overview of the codebase
 
 ```bash
@@ -76,6 +63,9 @@ Template optimized for AI agents to implement features with sufficient context a
 
 ## Implementation Blueprint
 
+- List the high-level steps Codex should perform, referencing patterns and best practices from the codebase.
+- For each step, specify what files to analyze, what patterns to follow, and any gotchas to watch for.
+- Avoid direct shell commands or file injections—describe the reasoning process instead.
 ### Data models and structure
 
 Create the core data models, we ensure type safety and consistency.
@@ -161,16 +151,13 @@ ROUTES:
 
 ## Validation Loop
 
-### Level 1: Syntax & Style
+After each implementation step, Codex MUST perform the following validation:
 
-```bash
-# Run these FIRST - fix any errors before proceeding
-npm run lint                    # ESLint checks
-npx tsc --noEmit               # TypeScript type checking
-npm run format                 # Prettier formatting
-
-# Expected: No errors. If errors, READ the error and fix.
-```
+1. **Run Tests:** Execute the relevant test command for the framework.
+2. **Analyze Failure:** If tests fail, do not stop. Read the error output, identify the root cause, and modify the code to fix the issue.
+3. **Iterate:** Repeat steps 1 and 2 until all tests pass.
+4. **Final Verification:** Once all tests pass, confirm that the changes meet all acceptance criteria outlined in the 'What' section before concluding your work.
+5. **Lint:** Ensure that the code adheres to the project's linting and type checking rules.
 
 ### Level 2: Unit Tests each new feature/file/function use existing test patterns
 

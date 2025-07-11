@@ -1,3 +1,5 @@
+_See AGENTS.md for Codex workflow_
+
 name: "Planning PRP Template - PRD Generation with Diagrams"
 description: |
 
@@ -20,37 +22,15 @@ $ARGUMENTS
 ### Phase 1: Idea Expansion & Research
 
 #### Context Gathering
-```yaml
-research_areas:
-  market_analysis:
-    - competitors: [Research similar solutions]
-    - user_needs: [Identify pain points]
-    - trends: [Current industry directions]
-  
-  technical_research:
-    - existing_solutions: [How others solve this]
-    - libraries: [Available tools/frameworks]
-    - patterns: [Common implementation approaches]
-  
-  internal_context:
-    - current_system: [How it works today]
-    - constraints: [Technical/business limitations]
-    - integration_points: [What it must work with]
-```
+
+- Instruct Codex to analyze the codebase for similar solutions, user needs, and technical patterns. For example: "Review existing features in the codebase to identify common implementation approaches and integration points."
+- Summarize any relevant market or technical research as actionable insights. For example: "Identify pain points addressed by competitors and note trends relevant to this concept."
+- Do not use shell commands or web search directives. Instead, describe the research and synthesis process as explicit agent instructions.
 
 #### Initial Exploration
-```
-RESEARCH similar solutions:
-  - WEB_SEARCH: "{concept} implementation examples"
-  - WEB_SEARCH: "{concept} best practices"
-  - WEB_SEARCH: "{concept} architecture patterns"
 
-ANALYZE existing codebase:
-  - FIND: Similar features already implemented
-  - IDENTIFY: Patterns to follow
-  - NOTE: Technical constraints
-```
-
+- Instruct Codex to analyze the codebase for similar features and patterns. For example: "Identify similar features already implemented and extract patterns to follow. Note any technical constraints present in the codebase."
+- All research and exploration should be performed within the agent's reasoning process, not via external tools or commands.
 ### Phase 2: PRD Structure Generation
 
 #### 1. Executive Summary

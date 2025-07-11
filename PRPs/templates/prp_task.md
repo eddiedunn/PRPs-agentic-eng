@@ -17,38 +17,26 @@ Intended for Jira/GitHub tasks or other task management systems to break down an
 
 ## Actions keywords to use when creating tasks for concise and meaningful descriptions
 
-- **READ**: Understand existing patterns
-- **CREATE**: New file with specific content
-- **UPDATE**: Modify existing file
-- **DELETE**: Remove file/code
-- **FIND**: Search for patterns
-- **TEST**: Verify behavior
-- **FIX**: Debug and repair
+- **READ**: Instruct the agent to analyze existing patterns in the codebase.
+- **CREATE**: Direct the agent to generate a new file with specific content.
+- **UPDATE**: Guide the agent to modify an existing file.
+- **DELETE**: Specify that the agent should remove a file or code section.
+- **FIND**: Ask the agent to search for patterns in the codebase.
+- **TEST**: Require the agent to verify desired behavior through testing.
+- **FIX**: Instruct the agent to debug and repair issues found during validation.
 
 ## Critical Context Section
 
-```yaml
-# Include these BEFORE tasks when context is crucial
-context:
-  docs:
-    - url: [API documentation]
-      focus: [specific method/section]
-
-  patterns:
-    - file: existing/example.py
-      copy: [pattern name]
-
-  gotchas:
-    - issue: "Library X requires Y"
-      fix: "Always do Z first"
-```
+- Instruct Codex to read and analyze relevant files for implementation patterns. For example: "Read `existing/example.py` to understand the model registration pattern."
+- Summarize any critical documentation or gotchas as actionable instructions. For example: "Library X requires Y; always do Z first."
+- Do not inject files or documentation directly—provide clear instructions on what to review and why.
 
 ## Task Examples with Validation
 
 ### Setup Tasks
 
 ```
-READ src/config/settings.py:
+READ src/config/py:
   - UNDERSTAND: Current configuration structure
   - FIND: Model configuration pattern
   - NOTE: Config uses pydantic BaseSettings
@@ -65,9 +53,8 @@ READ tests/test_models.py:
 UPDATE path/to/file:
   - FIND: MODEL_REGISTRY = {
   - ADD: "new-model": NewModelClass,
-  - VALIDATE: python -c "from path/to/file import MODEL_REGISTRY; assert 'new-model' in MODEL_REGISTRY"
-  - IF_FAIL: Check import statement for NewModelClass
-
+  - VALIDATE: Instruct the agent to verify that 'new-model' is present in MODEL_REGISTRY after the update.
+  - IF_FAIL: If validation fails, the agent should check that NewModelClass is correctly imported and referenced.
 CREATE path/to/file:
   - COPY_PATTERN: path/to/other/file
   - IMPLEMENT:
@@ -84,27 +71,15 @@ UPDATE path/to/file:
   - VALIDATE: python -m pytest path/to/file -v
 ````
 
-## Validation Checkpoints
+## Validation Loop
 
-```
-CHECKPOINT syntax:
-  - RUN: python -m ruff check && python -m mypy .
-  - FIX: Any reported issues
-  - CONTINUE: Only when clean
+After each implementation step, the agent MUST perform the following validation:
 
-CHECKPOINT tests:
-  - RUN: python -m pytest path/to/file -v
-  - REQUIRE: All passing
-  - DEBUG: python -m pytest -vvs path/to/file/failing_test.py
-  - CONTINUE: Only when all green
-
-CHECKPOINT integration:
-  - START: docker-compose up -d
-  - RUN: ./scripts/integration_test.sh
-  - EXPECT: "All tests passed"
-  - CLEANUP: docker-compose down
-```
-
+1. **Run Tests:** Use the standard Python test runner to execute all tests in the project.
+2. **Analyze Failure:** If any tests fail, do not stop. Carefully review the error output, identify the root cause, and modify the code to fix the issue.
+3. **Iterate:** Repeat steps 1 and 2 until all tests pass.
+4. **Final Verification:** Once all tests pass, confirm that the changes meet all acceptance criteria outlined in the 'What' section before concluding your work.
+5. **Lint:** Ensure the codebase passes all linting checks using the project's standard linter.
 ## Debug Patterns
 
 ```
@@ -122,10 +97,9 @@ DEBUG test_failure:
 
 DEBUG api_error:
   - CHECK: Server running (ps aux | grep uvicorn)
-  - TEST: curl http://localhost:8000/health
-  - READ: Server logs for stack trace
-  - FIX: Based on specific error
-```
+  - TEST: Instruct the agent to verify the health endpoint is reachable and returns the expected response.
+  - READ: If errors occur, direct the agent to analyze the server logs for stack traces and diagnose the problem.
+  - FIX: The agent should implement a fix based on the specific error identified.```
 
 ## Common Task examples
 
