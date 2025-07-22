@@ -1,12 +1,20 @@
-# Agentic Engineering with Product Requirement Prompts (PRP) for OpenAI Codex
+# Agentic Engineering with Product Requirement Prompts (PRP)
 
-A comprehensive library of assets and prompt engineering patterns for building production-ready software with AI agents. This repository provides the **Product Requirement Prompt (PRP)** methodology, optimized for OpenAI's containerized **Codex** agent.
+A framework for building production-ready software with AI agents.
 
-It is designed to be used as a template for new projects or to be integrated into existing ones.
+This repository provides the **Product Requirement Prompt (PRP)** methodology, a structured approach to guide AI agents like OpenAI's Codex to write, validate, and deliver high-quality code. It is designed to be used as a template for new projects or integrated into existing ones.
 
-## Core Concepts
+## The Philosophy: Why PRPs?
 
-### What is a PRP?
+Standard software requirements often fail AI agents because they specify *what* to build but omit the critical context of *how*. This leads to generic, brittle code that requires heavy rework.
+
+A PRP closes this gap by providing three critical layers:
+
+1.  **Context:** Instructions for the agent on what existing code patterns, documentation, and best practices to analyze.
+2.  **Implementation Blueprint:** A clear, step-by-step plan for the agent to follow.
+3.  **Validation Loop:** A mandate for the agent to autonomously run tests, lint, and analyze failures, iterating until the code is correct and meets quality standards.
+
+This repository is optimized for the asynchronous, plan-and-execute workflow used by agents like **OpenAI Codex**. The core guidance for the agent is defined in `AGENTS.md`.
 
 A Product Requirement Prompt (PRP) is a structured specification that supplies an AI coding agent with everything it needs to deliver a vertical slice of working software. It fuses the disciplined scope of a classic Product Requirements Document (PRD) with the context-rich, instructional nature required for modern, asynchronous AI agents.
 
@@ -26,40 +34,27 @@ The most important file for guiding the agent is **`AGENTS.md`**. It provides th
 
 ## How to Use This Repository
 
-You can use this framework for a brand new project or integrate its principles into an existing one.
+For a detailed, step-by-step guide on authoring and using PRPs, please see the **[USAGE_GUIDE.md](USAGE_GUIDE.md)**.
 
-### For a New (Greenfield) Project
+### For a New Project
 
-Use this repository as a starting template for your new project.
+Use this repository as a starting template.
 
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/Wirasm/PRPs-agentic-eng.git your-new-project
     cd your-new-project
     ```
-2.  **Review `AGENTS.md`:** This is the most important file for guiding the AI. Read it and adapt its conventions to match your project's specific needs.
-3.  **Explore the Examples:**
-    *   `PRPs/examples/`: Contains complete, illustrative PRPs.
-    *   `PRPs/agent_guidance_examples/`: Provides language-specific guidance documents (e.g., for Python, Rust, TypeScript) that you can adapt for your `AGENTS.md` file.
-4.  **Start building your project:** You can now begin creating your source code, writing PRPs in the `PRPs/` directory using the provided templates, and working with the Codex agent.
+2.  **Customize `AGENTS.md`:** This is the master blueprint for the AI. Adapt its conventions to match your project's specific needs, using `PRPs/agent_guidance_examples` for inspiration.
+3.  **Start Building:** Begin creating your source code and use the templates in `PRPs/templates` to write PRPs for your features.
 
-### For an Existing (Brownfield) Project
+### For an Existing Project
 
-Integrate the PRP methodology into your existing codebase by copying the essential components.
-
-1.  **Create the PRP directory structure** in your project's root:
+1.  **Copy the PRP structure and `AGENTS.md`** into your project:
     ```bash
-    mkdir -p PRPs/templates PRPs/examples PRPs/agent_guidance_examples
-    ```
-2.  **Copy the core templates and examples:**
-    ```bash
-    # From the cloned PRPs-agentic-eng repo:
-    cp -r PRPs/templates/* path/to/your/project/PRPs/templates/
-    cp -r PRPs/examples/* path/to/your/project/PRPs/examples/
-    cp -r PRPs/agent_guidance_examples/* path/to/your/project/PRPs/agent_guidance_examples/
-    ```
-3.  **Copy and adapt the agent guidance file:** This is the most critical step.
-    ```bash
+    # From a clone of this repository, copy the core assets:
+    mkdir -p your-project/PRPs
+    cp -r PRPs/templates PRPs/examples PRPs/agent_guidance_examples your-project/PRPs/
     cp AGENTS.md path/to/your/project/
     ```
     - **Crucially, edit `AGENTS.md`** to reflect your project's specific architecture, conventions, and tooling. The provided file is a template; it will be most effective once it's tailored to your codebase. You can use the files in `PRPs/agent_guidance_examples` as inspiration.

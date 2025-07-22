@@ -1,4 +1,4 @@
-Below is a repeatable recipe for **authoring a new Product Requirement Prompt (PRP)** with the materials in this repository. Treat it like a checklist you can copy-paste into your own workflow.
+This is a repeatable recipe for **authoring a new Product Requirement Prompt (PRP)** with the materials in this repository. Treat it like a checklist for your development workflow.
 
 ---
 
@@ -8,10 +8,10 @@ Below is a repeatable recipe for **authoring a new Product Requirement Prompt (P
 | -------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------- |
 | Framing a whole feature or product idea (high-level PRD) | `PRPs/templates/prp_planning.md`                           | Captures user stories, diagrams, success metrics.                |
 | Delivering a single vertical slice (code + tests)        | `PRPs/templates/prp_base.md` *or* `prp_base_typescript.md` | Already wired for Validation Loop and language-specific gotchas. |
-| Breaking epic work into small Jira/GitHub tasks          | `PRPs/templates/prp_task.md`                               | Produces bite-sized, self-validating chores.                     |
+| Breaking large work into small, executable sub-tasks     | `PRPs/templates/prp_task.md`                               | Produces bite-sized, self-validating chores for the agent.       |
 | Writing a spec after research is done                    | `PRPs/templates/prp_spec.md`                               | Turns research into a concrete implementation spec.              |
 
-> **Tip:** If you’re refactoring an existing codebase, use `PRPs/example-codex-refactor-rag.md` as scaffolding.
+> **Tip:** If you're refactoring an existing codebase, use `PRPs/example-codex-refactor-rag.md` as scaffolding.
 
 ---
 
@@ -29,20 +29,20 @@ cp PRPs/templates/prp_base.md PRPs/2025-07-auth-service.md
 ## 3 · Fill the template—section by section
 
 1. **Goal / Why**
-   *Write one sentence each:* “Add JWT-based auth to the API because enterprise customers require SSO.”
+   *Write one sentence each:* "Add JWT-based auth to the API because enterprise customers require SSO."
 
 2. **What / Success Criteria**
-   *Be testable:* “`POST /login` returns 200 with a signed token; 100 % branch coverage on auth module.”
+   *Be testable:* "`POST /login` returns 200 with a signed token; 100 % branch coverage on auth module."
 
 3. **Security & Compliance (if using base template)**
-   List explicit constraints—e.g., “Do **not** log raw JWTs.”
+   List explicit constraints—e.g., "Do **not** log raw JWTs."
 
 4. **All Needed Context**
 
    * Point Codex to specific files:
      `- Instruct Codex to read src/routers/user.py for existing patterns`
    * Call out quirks:
-     `- CRITICAL: project uses FastAPI async endpoints`
+     `- CRITICAL: This project uses FastAPI async endpoints`
 
 5. **Current and Desired Codebase Trees**
    Use `tree -L 2` for the current state; sketch target folders/files.
