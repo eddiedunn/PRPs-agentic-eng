@@ -1,19 +1,30 @@
 #!/usr/bin/env -S uv run --script
-"""Run an AI coding agent against a PRP.
+"""
+Run an AI coding agent against a Product Requirement Prompt (PRP) markdown file.
 
-KISS version - no repo-specific assumptions.
+This script launches a Claude Code agent to process a PRP file, either interactively (chat mode)
+or headless (one-shot mode), with flexible output formats. It is repo-agnostic and expects PRPs
+to be located in the PRPs/ directory at the project root, unless a custom path is provided.
 
-Typical usage:
-    uv run RUNNERS/claude_runner.py --prp test --interactive
-    uv run RUNNERS/claude_runner.py --prp test --output-format json
-    uv run RUNNERS/claude_runner.py --prp test --output-format stream-json
+Usage examples:
+    uv run PRPs/scripts/prp_runner.py --prp feature_name --interactive
+    uv run PRPs/scripts/prp_runner.py --prp feature_name --output-format json
+    uv run PRPs/scripts/prp_runner.py --prp feature_name --output-format stream-json
+    uv run PRPs/scripts/prp_runner.py --prp-path path/to/custom_prp.md
 
 Arguments:
     --prp-path       Path to a PRP markdown file (overrides --prp)
-    --prp            Feature key; resolves to PRPs/{feature}.md
-    --model          CLI executable for the LLM (default: "claude") Only Claude Code is supported for now
-    --interactive    Pass through to run the model in chat mode; otherwise headless.
+    --prp            Feature key; resolves to PRPs/{feature}.md at project root
+    --model          CLI executable for the LLM (default: "claude")
+    --interactive    Run in chat mode (interactive session)
     --output-format  Output format for headless mode: text, json, stream-json (default: text)
+
+Behavior:
+    - Resolves PRP file path from --prp or --prp-path
+    - Changes working directory to project root for consistent relative paths
+    - Builds a prompt with workflow guidance and PRP content
+    - Invokes Claude Code agent with specified options
+    - Supports streaming and structured output for automation
 """
 
 from __future__ import annotations

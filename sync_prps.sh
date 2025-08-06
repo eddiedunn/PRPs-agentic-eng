@@ -23,9 +23,9 @@ SRC_PATH="../../eddiedunn/PRPs-agentic-eng"
 
 echo "Syncing resources from $SRC_PATH..."
 
-# Sync .claude/commands
-mkdir -p .claude/commands
-cp -r "$SRC_PATH/.claude/commands" .claude/commands/
+# Sync .claude directory
+mkdir -p .claude
+cp -r "$SRC_PATH/.claude/"* .claude/ 2>/dev/null || :
 
 # Sync PRPs subfolders
 mkdir -p PRPs/templates
